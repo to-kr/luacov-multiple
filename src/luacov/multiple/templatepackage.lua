@@ -15,15 +15,15 @@ return [[
             </h1>
             <div>
                 <div class="stats">
-                    <span class="strong">{{{rate}}}%</span>
+                    <span class="strong">{{{package.rate}}}%</span>
                     <span class="quiet">Rate</span>
                 </div>
                 <div class="stats">
-                    <span class="strong">{{{hits}}}</span>
+                    <span class="strong">{{{package.hits}}}</span>
                     <span class="quiet">Hits</span>
                 </div>
                 <div class="stats">
-                    <span class="strong">{{{miss}}}</span>
+                    <span class="strong">{{{package.miss}}}</span>
                     <span class="quiet">Missed</span>
                 </div>
             </div>

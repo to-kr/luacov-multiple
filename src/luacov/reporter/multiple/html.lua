@@ -118,6 +118,8 @@ function HtmlReporter:on_end_file(filename, hits, miss)
 	self.current_package["rateTo100Formatted"] = tonumber(string.format("%.2f", 100 - self.current_package["rate"] * 100))
 	self.current_package["status"] = tools.status(self.current_package["rate"])
 
+	self.current_class["hits"] = hits
+	self.current_class["miss"] = miss
 	self.current_class["rate"] = hits / (hits + miss)
 	self.current_class["rateFormatted"] = tonumber(string.format("%.2f", self.current_class["rate"] * 100))
 	self.current_class["rateTo100Formatted"] = tonumber(string.format("%.2f", 100 - self.current_class["rate"] * 100))
@@ -166,9 +168,11 @@ function HtmlReporter:on_end()
 		if not out then return nil, err end
 		out:write(lustache:render(templatePackage, {
 			css = css,
-			hits = package.hits,
-			miss= package.miss,
-			rate = tonumber(string.format("%.2f", package.rate * 100)),
+			package = {
+				hits = package.hits,
+				miss= package.miss,
+				rate = tonumber(string.format("%.2f", package.rate * 100)),
+			},
 			packageParts = packageParts,
 			classes = package.classes,
 			path = package.name,
@@ -196,9 +200,11 @@ function HtmlReporter:on_end()
 	if not out then return nil, err end
 	out:write(lustache:render(templatePackage, {
 		css = css,
-		hits = total_hits,
-		miss= total_miss,
-		rate = tonumber(string.format("%.2f", total_rate * 100)),
+		package = {
+			hits = total_hits,
+			miss= total_miss,
+			rate = tonumber(string.format("%.2f", total_rate * 100)),
+		},
 		packageParts = {},
 		classes = self.data.coverage.packages,
 		link = {
