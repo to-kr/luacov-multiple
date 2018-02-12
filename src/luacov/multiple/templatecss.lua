@@ -64,7 +64,7 @@ return [[
         background-color: rgb(230, 245, 208);
     }
     .line:empty {
-        display: inline-block;
+        display: inline;
     }
     .line[data-hits='0'] {
         background-color: #FCE1E5;
