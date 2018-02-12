@@ -161,8 +161,10 @@ end
 
 --- Handle when the entire report has been completely parsed
 function HtmlReporter:on_end()
+	table.sort(self.data.coverage.packages, function(a, b) return a.name < b.name end)
 	for _, package in pairs(self.data.coverage.packages) do
 		local packageParts = tools.packageParts(package.name)
+		table.sort(package.classes, function(a, b) return a.name < b.name end)
 		-- write package html file
 		local out, err = io.open(self.reportDir .. package.name .. '/index.html', "w")
 		if not out then return nil, err end
