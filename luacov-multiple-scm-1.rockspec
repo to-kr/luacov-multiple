@@ -1,7 +1,7 @@
 package = "luacov-multiple"
 version = "scm-1"
 source = {
-   url = "git://github.com/T-MAPY/luacov-multiple",
+   url = "git://github.com/to-kr/luacov-multiple",
 }
 description = {
    summary = "Multiple LuaCov report generators",
@@ -11,7 +11,7 @@ description = {
       (cobertura, html) with possibility to generate multiple 
       reports at once.
    ]],
-   homepage = "https://github.com/T-MAPY/luacov-multiple",
+   homepage = "https://github.com/to-kr/luacov-multiple",
    license = "MIT/X11"
 }
 dependencies = {
