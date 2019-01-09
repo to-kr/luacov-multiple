@@ -14,7 +14,7 @@ end
 
 function tools.packageParts(packageName)
     local parts = tools.split(packageName, '/')
-    local count = table.getn(parts)
+    local count = #parts
     local result = {}
     local i = 1
     local path = ""
