@@ -65,7 +65,7 @@ function HtmlReporter:on_new_file(filename)
 	if not package then
 		package = {
 			name = package_name,
-			report = package_name .. "/index",
+			report = package_name:gsub("^/", "") .. "/index",
 			["rate"] = 0,
 			["hits"] = 0,
 			["miss"] = 0,
