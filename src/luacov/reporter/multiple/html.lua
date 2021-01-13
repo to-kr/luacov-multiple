@@ -49,10 +49,11 @@ function HtmlReporter:on_start()
 end
 
 function HtmlReporter:on_new_file(filename)
-	-- "test/package/file.lua" -> "file.lua"
-	local class_name = filename:gsub("^.*/", "")
-	-- "test/package/file.lua" -> "test/package"
-	local package_name = filename:gsub(filename:gsub("^.*/", ""), ""):gsub("/$", "")
+	-- class_name:   "test/package/file.lua" -> "file.lua"
+	-- package_name: "test/package/file.lua" -> "test/package"
+	local package_name, class_name = filename:match("^(.*)/([^/]+)")
+	class_name = class_name or ""
+	package_name = package_name or filename
 
 	local package
 	for _, p in pairs(self.data.coverage.packages) do
