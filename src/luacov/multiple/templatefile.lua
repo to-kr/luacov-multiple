@@ -42,7 +42,7 @@ return [[
             </div>
             <div class="code">
                 {{#lines}}
-                <div class="line" data-hits="{{hits}}">{{line}}</div>
+                <div class="line" data-hits="{{hits}}">{{line}}&#8203;</div>
                 {{/lines}}
             </div>
         </div>
