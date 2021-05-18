@@ -11,7 +11,7 @@ local CoberturaReporter = setmetatable({}, ReporterBase) do
 CoberturaReporter.__index = CoberturaReporter
 
 function CoberturaReporter:new(conf)
-	local confOver = conf.multiple.cobertura and conf.multiple.cobertura or {}
+	local confOver = conf.multiple and conf.multiple.cobertura or {}
 
 	local config = {}
 	for k, v in pairs(conf) do

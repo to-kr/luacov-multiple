@@ -18,12 +18,22 @@ local HtmlReporter = setmetatable({}, ReporterBase) do
 HtmlReporter.__index = HtmlReporter
 
 function HtmlReporter:new(conf)
-	local confOver = conf.multiple.html and conf.multiple.html or {}
-	confOver.reportfile = confOver.reportfile and confOver.reportfile or 'luacov_html/index.html'
+	local confOver = conf.multiple and conf.multiple.html or {}
+	confOver.reportfile = confOver.reportfile or 'luacov_html/index.html'
 
 	local config = {}
 	for k, v in pairs(conf) do
 		config[k] = confOver[k] and confOver[k] or v
+	end
+
+	local reportDir = string.gsub(config.reportfile, "(.*[/\\])(.*)", "%1")
+	local separator = string.match(reportDir, "[/\\]")
+	if separator then
+		local dirPath = ""
+		for dir in string.gmatch(reportDir, "[^/\\]+") do
+			dirPath = dirPath .. dir .. separator
+			lfs.mkdir(dirPath)
+		end
 	end
 
 	local o, err = ReporterBase.new(self, config)
@@ -31,7 +41,7 @@ function HtmlReporter:new(conf)
 		return nil, err
 	end
 
-	o.reportDir = string.gsub(config.reportfile, "(.*[/\\])(.*)", "%1")
+	o.reportDir = reportDir
 
 	return o
 end
