@@ -47,10 +47,11 @@ function CoberturaReporter:on_start()
 end
 
 function CoberturaReporter:on_new_file(filename)
+	local norm_filename = tools.normalize_path(filename)
 	-- "test/package/file.lua" -> "file.lua"
-	local class_name = filename:gsub("^.*/", "")
+	local class_name = norm_filename:gsub("^.*/", "")
 	-- "test/package/file.lua" -> "test/package"
-	local package_name = filename:gsub(filename:gsub("^.*/", ""), ""):gsub("/$", "")
+	local package_name = norm_filename:gsub(norm_filename:gsub("^.*/", ""), ""):gsub("/$", "")
 
 	local package
 	for _,p in pairs(self.cobertura.coverage.packages) do
