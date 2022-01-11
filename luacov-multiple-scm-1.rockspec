@@ -1,7 +1,7 @@
 package = "luacov-multiple"
 version = "scm-1"
 source = {
-   url = "git://github.com/to-kr/luacov-multiple",
+   url = "git+https://github.com/to-kr/luacov-multiple.git",
 }
 description = {
    summary = "Multiple LuaCov report generators",
