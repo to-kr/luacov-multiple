@@ -84,4 +84,10 @@ function tools.toxml(value, indentation)
 	return xml
 end
 
+local separator_is_backslash = string.match(package.config, "^[^\n]+") == "\\"
+
+function tools.normalize_path(path)
+    return separator_is_backslash and (path:gsub("\\", "/")) or path
+end
+
 return tools

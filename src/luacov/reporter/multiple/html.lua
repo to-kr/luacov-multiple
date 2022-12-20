@@ -59,11 +59,12 @@ function HtmlReporter:on_start()
 end
 
 function HtmlReporter:on_new_file(filename)
+	local norm_filename = tools.normalize_path(filename)
 	-- class_name:   "test/package/file.lua" -> "file.lua"
 	-- package_name: "test/package/file.lua" -> "test/package"
-	local package_name, class_name = filename:match("^(.*)/([^/]+)")
+	local package_name, class_name = norm_filename:match("^(.*)/([^/]+)")
 	class_name = class_name or ""
-	package_name = package_name or filename
+	package_name = package_name or norm_filename
 
 	local package
 	for _, p in pairs(self.data.coverage.packages) do
@@ -121,6 +122,7 @@ end
 -- @param hits
 -- @param miss
 function HtmlReporter:on_end_file(filename, hits, miss)
+	local norm_filename = tools.normalize_path(filename)
 	self.current_package["hits"] = self.current_package["hits"] + hits
 	self.current_package["miss"] = self.current_package["miss"] + miss
 	self.current_package["rate"] =
@@ -152,7 +154,7 @@ function HtmlReporter:on_end_file(filename, hits, miss)
 	out:write(lustache:render(templateFile, {
 		css = css,
 		filename = filename,
-		basename = filename:gsub("(.*/)(.*)", "%2"),
+		basename = norm_filename:gsub("(.*/)(.*)", "%2"),
 		packageParts = packageParts,
 		lines = self.current_class.lines,
 		path = self.current_package.name,
